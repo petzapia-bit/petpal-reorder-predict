@@ -1,3 +1,5 @@
+import { Cat, Dog } from "lucide-react";
+
 import type { Especie, FonteCalculo, Situacao } from "@/lib/recompra-data";
 import { cn } from "@/lib/utils";
 
@@ -68,11 +70,11 @@ export function FonteSelo({ fonte, compact }: { fonte: FonteCalculo; compact?: b
 export function EspecieIcone({ especie }: { especie: Especie }) {
   return (
     <span
-      className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-secondary text-sm"
+      className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-secondary text-secondary-foreground"
       title={especie === "cao" ? "Cão" : "Gato"}
       aria-label={especie === "cao" ? "Cão" : "Gato"}
     >
-      {especie === "cao" ? "🐶" : "🐱"}
+      {especie === "cao" ? <Dog className="h-4 w-4" /> : <Cat className="h-4 w-4" />}
     </span>
   );
 }
