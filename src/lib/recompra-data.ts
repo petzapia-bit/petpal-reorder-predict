@@ -166,7 +166,7 @@ export function consumoDiario(pet: Pet, produto: Produto) {
   if (pet.especie === "gato") {
     faixa = buscaFaixa(TABELA_GATO_ADULTO, pet.pesoKg);
   } else if (pet.fase === "filhote") {
-    faixa = buscaFaixa(TABELA_CAO_FILHOTE[faixaIdade(pet.idadeMeses ?? 6)], pet.pesoKg);
+    faixa = buscaFaixa((TABELA_CAO_FILHOTE[faixaIdade(pet.idadeMeses ?? 6)] ?? []), pet.pesoKg);
   } else if (pet.fase === "senior") {
     faixa = buscaFaixa(TABELA_CAO_SENIOR, pet.pesoKg);
   } else {
