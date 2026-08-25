@@ -140,8 +140,11 @@ const TABELA_GATO_ADULTO: FaixaTabela[] = [
   { pesoMax: 100, min: 80, max: 95 },
 ];
 
-function buscaFaixa(tabela: FaixaTabela[], pesoKg: number) {
-  return tabela.find((f) => pesoKg <= f.pesoMax) ?? tabela[tabela.length - 1];
+function buscaFaixa(tabela: FaixaTabela[], pesoKg: number): FaixaTabela {
+  return (
+    tabela.find((f) => pesoKg <= f.pesoMax) ??
+    tabela[tabela.length - 1] ?? { pesoMax: 100, min: 0, max: 0 }
+  );
 }
 
 function faixaIdade(meses: number) {
