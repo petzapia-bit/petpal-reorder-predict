@@ -361,10 +361,10 @@ export function mensagemRecompra(l: LinhaFila) {
   const racao = `${l.produto.marca} ${l.produto.linha} ${l.produto.variacao} ${l.produto.pesoPacoteKg} kg`;
   const abertura =
     l.situacao === "atrasado"
-      ? `Oi ${primeiro}! Pelas nossas contas a ração ${l.pets.length > 1 ? "d" : "d"}${nomes ? "o " + nomes : ""} acabou há cerca de ${Math.abs(l.diasRestantes)} dias.`
+      ? `Oi ${primeiro}! Pelas nossas contas a ração do ${nomes} acabou há cerca de ${Math.abs(l.diasRestantes)} dias.`
       : l.situacao === "urgente"
-        ? `Oi ${primeiro}! A ração ${nomes ? "do " + nomes : ""} deve acabar ${l.diasRestantes === 0 ? "hoje" : `em ${l.diasRestantes} dias`}.`
-        : `Oi ${primeiro}! Passando pra avisar que a ração ${nomes ? "do " + nomes : ""} deve durar até ${dataCurta(l.dataRecompra)}.`;
+        ? `Oi ${primeiro}! A ração do ${nomes} deve acabar ${l.diasRestantes === 0 ? "hoje" : `em ${l.diasRestantes} dias`}.`
+        : `Oi ${primeiro}! Passando pra avisar que a ração do ${nomes} deve durar até ${dataCurta(l.dataRecompra)}.`;
   return [
     abertura,
     `Você comprou ${racao} em ${dataCurta(l.dataCompra)} e, no consumo ${l.pets.length > 1 ? "somado" : "atual"} de ${l.consumoDiarioG} g/dia, o pacote rende ${l.diasDuracao} dias.`,
