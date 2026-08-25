@@ -16,6 +16,8 @@ import {
 } from "@/lib/recompra-data";
 import { RingStat } from "./RingStat";
 import { EspecieIcone, FonteSelo, SITUACAO_META, StatusChip } from "./atoms";
+import { WhatsAppCliente } from "./WhatsAppCliente";
+
 
 const COLUNAS: Situacao[] = ["atrasado", "urgente", "normal"];
 
