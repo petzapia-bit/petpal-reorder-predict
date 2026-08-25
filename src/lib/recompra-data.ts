@@ -318,3 +318,56 @@ export const moeda = (v: number) =>
 
 export const dataCurta = (d: Date) =>
   d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" });
+
+/* ------------------------------------------------- WhatsApp do cliente */
+
+export type MensagemWhats = { de: "cliente" | "loja"; texto: string; quando: string };
+
+/** Telefone fictício estável por tutor (demo). */
+export function telefoneTutor(tutorId: string) {
+  const n = Number(tutorId.replace(/\D/g, "")) || 1;
+  const bloco = String(90000 + n * 137).slice(0, 5);
+  const bloco2 = String(1000 + n * 71).slice(0, 4);
+  return `+55 31 ${bloco}-${bloco2}`;
+}
+
+export const telefoneDigitos = (tutorId: string) =>
+  "55" + telefoneTutor(tutorId).replace(/\D/g, "").slice(2);
+
+/** Histórico de WhatsApp que originou o cadastro do pet e a última compra. */
+export function conversaCliente(l: LinhaFila): MensagemWhats[] {
+  const nomes = l.pets.map((p) => p.nome).join(" e ");
+  const pesos = l.pets.map((p) => `${p.nome} ${p.pesoKg} kg`).join(", ");
+  const compra = dataCurta(l.dataCompra);
+  const primeiro = l.tutor.nome.split(" ")[0];
+  return [
+    { de: "cliente", texto: `Oi! Queria ver a ração ${l.produto.marca} ${l.produto.linha} pra ${nomes}.`, quando: compra },
+    { de: "loja", texto: `Oi ${primeiro}! Temos sim 🙂 Pra eu confirmar a porção certa, me diz o peso ${l.pets.length > 1 ? "dos pets" : "do pet"}?`, quando: compra },
+    { de: "cliente", texto: `${pesos}. ${l.pets.length > 1 ? "Comem do mesmo pacote." : ""}`.trim(), quando: compra },
+    {
+      de: "loja",
+      texto: `Perfeito. O pacote de ${l.produto.pesoPacoteKg} kg rende cerca de ${l.diasDuracao} dias nesse consumo (${l.consumoDiarioG} g/dia). Fecho o pedido?`,
+      quando: compra,
+    },
+    { de: "cliente", texto: "Pode fechar!", quando: compra },
+    { de: "loja", texto: `Pedido ${l.id} confirmado, ${l.produto.variacao}. Qualquer coisa é só chamar!`, quando: compra },
+  ];
+}
+
+/** Mensagem pronta de aviso de recompra, ajustada à situação da fila. */
+export function mensagemRecompra(l: LinhaFila) {
+  const primeiro = l.tutor.nome.split(" ")[0];
+  const nomes = l.pets.map((p) => p.nome).join(" e ");
+  const racao = `${l.produto.marca} ${l.produto.linha} ${l.produto.variacao} ${l.produto.pesoPacoteKg} kg`;
+  const abertura =
+    l.situacao === "atrasado"
+      ? `Oi ${primeiro}! Pelas nossas contas a ração do ${nomes} acabou há cerca de ${Math.abs(l.diasRestantes)} dias.`
+      : l.situacao === "urgente"
+        ? `Oi ${primeiro}! A ração do ${nomes} deve acabar ${l.diasRestantes === 0 ? "hoje" : `em ${l.diasRestantes} dias`}.`
+        : `Oi ${primeiro}! Passando pra avisar que a ração do ${nomes} deve durar até ${dataCurta(l.dataRecompra)}.`;
+  return [
+    abertura,
+    `Você comprou ${racao} em ${dataCurta(l.dataCompra)} e, no consumo ${l.pets.length > 1 ? "somado" : "atual"} de ${l.consumoDiarioG} g/dia, o pacote rende ${l.diasDuracao} dias.`,
+    `Quer que eu já separe outro pacote (${moeda(l.valor)}) pra entrega?`,
+  ].join("\n\n");
+}

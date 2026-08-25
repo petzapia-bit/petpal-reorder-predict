@@ -16,6 +16,8 @@ import {
 } from "@/lib/recompra-data";
 import { RingStat } from "./RingStat";
 import { EspecieIcone, FonteSelo, SITUACAO_META, StatusChip } from "./atoms";
+import { WhatsAppCliente } from "./WhatsAppCliente";
+
 
 const COLUNAS: Situacao[] = ["atrasado", "urgente", "normal"];
 
@@ -433,6 +435,11 @@ export function PainelRecompra() {
                   {aberto.produto.pesoPacoteKg} kg ÷ {aberto.consumoDiarioG} g/dia ={" "}
                   {aberto.diasDuracao} dias.
                 </p>
+
+                <div className="border-t border-border pt-4">
+                  <WhatsAppCliente linha={aberto} />
+                </div>
+
               </div>
             </>
           )}
