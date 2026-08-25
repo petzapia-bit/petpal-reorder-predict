@@ -224,7 +224,7 @@ export const PEDIDOS: Pedido[] = [
   { id: "PD-4821", tutorId: "t1", produtoId: "fn-fresh-adulto-15", dataCompra: diasAtras(38), quantidade: 1 },
   { id: "PD-4835", tutorId: "t2", produtoId: "fn-fresh-mini-7", dataCompra: diasAtras(52), quantidade: 1 },
   { id: "PD-4840", tutorId: "t3", produtoId: "fn-life-senior-10", dataCompra: diasAtras(41), quantidade: 1 },
-  { id: "PD-4852", tutorId: "t4", produtoId: "fn-fresh-gato-7", dataCompra: diasAtras: 0 as never, quantidade: 1 },
+  { id: "PD-4852", tutorId: "t4", produtoId: "fn-fresh-gato-7", dataCompra: diasAtras(24), quantidade: 1 },
   { id: "PD-4860", tutorId: "t5", produtoId: "fn-pro-filhote-15", dataCompra: diasAtras(26), quantidade: 1 },
   { id: "PD-4871", tutorId: "t6", produtoId: "golden-adulto-15", dataCompra: diasAtras(19), quantidade: 1 },
   { id: "PD-4880", tutorId: "t7", produtoId: "premier-gato-7", dataCompra: diasAtras(44), quantidade: 1 },
