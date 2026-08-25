@@ -433,6 +433,11 @@ export function PainelRecompra() {
                   {aberto.produto.pesoPacoteKg} kg ÷ {aberto.consumoDiarioG} g/dia ={" "}
                   {aberto.diasDuracao} dias.
                 </p>
+
+                <div className="border-t border-border pt-4">
+                  <WhatsAppCliente linha={aberto} />
+                </div>
+
               </div>
             </>
           )}
