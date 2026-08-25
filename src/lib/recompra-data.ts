@@ -306,7 +306,8 @@ export function previsaoPorMes(linhas: LinhaFila[]) {
   return [...mapa.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([chave, valor]) => {
-      const [ano, mes] = chave.split("-");
+      const ano = chave.slice(0, 4);
+      const mes = chave.slice(5, 7);
       const nomes = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
       return { mes: `${nomes[Number(mes) - 1]}/${ano.slice(2)}`, valor: Math.round(valor) };
     });
